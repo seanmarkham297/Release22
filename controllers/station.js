@@ -4,6 +4,7 @@ const logger = require('../utils/logger');
 const stationCollection = require('../models/station-store.js');
 const stationStore = require('../models/station-store');
 const stationAnalytics = require("../models/analytics.js");
+const maxmin = require("../utils/maxmin.js");
 
 const station = {
   index(request, response) {
@@ -12,7 +13,7 @@ const station = {
     if (station.readings.length > 0) {
       station.latestTemp = stationAnalytics.getTemp(station)
 
-      station.minTemp = stationAnalytics.minTemp(station)
+      station.minTemp = maxmin.getMinTemp(station)
 
       station.latestPressure = stationAnalytics.getPressure(station)
       station.latestFarenheit = stationAnalytics.getFarenheit(station)
